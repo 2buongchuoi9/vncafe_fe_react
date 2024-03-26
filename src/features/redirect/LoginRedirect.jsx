@@ -8,6 +8,7 @@ const LoginRedirect = () => {
         const handleRedirect = async () => {
             // Đọc dữ liệu từ URL sau chuyển hướng.
             let baseUrl = window.location.origin
+            console.log("baseUrl", baseUrl)
             const queryString = window.location.search
             const urlParams = new URLSearchParams(queryString)
             const data = {

@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    "proxy": "http://localhost:8083",
+    "proxy": "https://shoppa.click",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
