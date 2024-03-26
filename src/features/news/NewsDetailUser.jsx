@@ -41,7 +41,11 @@ const NewsDetailUser = () => {
                                     <IoIosArrowForward />
                                     <Link>{news?.category?.name}</Link>
                                 </div>
-                                <div>{dayjs(news?.createAt, "DD-MM-YYYY HH:mm:ss").format("dddd, DD/MM/YYYY HH:mm")}</div>
+                                <div>
+                                    {dayjs(news?.createAt, "DD-MM-YYYY HH:mm:ss").format("dddd, DD/MM/YYYY HH:mm") === "Invalid Date"
+                                        ? news?.createAt
+                                        : dayjs(news?.createAt, "DD-MM-YYYY HH:mm:ss").format("dddd, DD/MM/YYYY HH:mm")}
+                                </div>
                             </div>
                             {/* title */}
                             <div>
