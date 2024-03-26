@@ -7,7 +7,10 @@ import dayjs from "dayjs"
 // dayjs.extend(duration)
 // dayjs.extend(relativeTime)
 
+dayjs.locale("vi")
+
 function timeAgo(time) {
+    console.log("time", time)
     const now = new Date()
     const then = dayjs(time, "DD-MM-YYYY HH:mm:ss").toDate()
     const seconds = Math.floor((now - then) / 1000)
@@ -29,6 +32,8 @@ function timeAgo(time) {
 }
 
 const TimeComment = ({ createAt }) => {
+    const a = dayjs(createAt, "DD-MM-YYYY HH:mm:ss").format("HH:mm DD-MM")
+    console.log("kjhfksjd", a)
     const [time, setTime] = useState(() => timeAgo(createAt))
 
     useEffect(() => {
