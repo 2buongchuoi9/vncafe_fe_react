@@ -1,6 +1,7 @@
 import propTypes from "prop-types"
 import { useEffect, useState } from "react"
 import dayjs from "dayjs"
+import "dayjs/locale/vi"
 // import duration from "dayjs/plugin/duration"
 // import relativeTime from "dayjs/plugin/relativeTime"
 
@@ -50,7 +51,7 @@ const TimeComment = ({ createAt }) => {
     return (
         <div>
             {/* các thông tin khác của comment */}
-            <div>{time}</div>
+            <div>{time === "Invalid Date" ? createAt : time}</div>
         </div>
     )
 }
