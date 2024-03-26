@@ -32,7 +32,7 @@ function timeAgo(time) {
 }
 
 const TimeComment = ({ createAt }) => {
-    const a = dayjs(createAt, "DD-MM-YYYY HH:mm:ss").format("HH:mm DD-MM")
+    const a = dayjs(createAt, "DD-MM-YYYY HH:mm:ss")
     console.log("kjhfksjd", a)
     const [time, setTime] = useState(() => timeAgo(createAt))
 
