@@ -1,27 +1,28 @@
 import propTypes from "prop-types"
 import { useEffect, useState } from "react"
 import dayjs from "dayjs"
-import duration from "dayjs/plugin/duration"
-import relativeTime from "dayjs/plugin/relativeTime"
+// import duration from "dayjs/plugin/duration"
+// import relativeTime from "dayjs/plugin/relativeTime"
 
-dayjs.extend(duration)
-dayjs.extend(relativeTime)
+// dayjs.extend(duration)
+// dayjs.extend(relativeTime)
 
 function timeAgo(time) {
-    const duration = dayjs.duration(dayjs().diff(dayjs(time, "DD-MM-YYYY HH:mm:ss")))
-    const seconds = duration.asSeconds()
-    const minutes = duration.asMinutes()
-    const hours = duration.asHours()
-    const days = duration.asDays()
+    const now = new Date()
+    const then = dayjs(time, "DD-MM-YYYY HH:mm:ss").toDate()
+    const seconds = Math.floor((now - then) / 1000)
+    const minutes = Math.floor(seconds / 60)
+    const hours = Math.floor(minutes / 60)
+    const days = Math.floor(hours / 24)
 
     if (seconds < 60) {
-        return `${Math.floor(seconds)} giây trước`
+        return `${seconds} giây trước`
     } else if (minutes < 60) {
-        return `${Math.floor(minutes)} phút trước`
+        return `${minutes} phút trước`
     } else if (hours < 24) {
-        return `${Math.floor(hours)} giờ trước`
+        return `${hours} giờ trước`
     } else if (days < 2) {
-        return `hôm qua ${Math.floor(hours % 24)} giờ`
+        return `hôm qua ${hours % 24} giờ`
     } else {
         return dayjs(time, "DD-MM-YYYY HH:mm:ss").format("DD-MM-YYYY HH:mm:ss")
     }
