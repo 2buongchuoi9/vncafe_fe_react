@@ -30,7 +30,6 @@ const initnew = {
 
 const NewsDetail = ({ isAdd = false }) => {
     const { id } = useParams()
-    console.log("cc")
     const [images, setImages] = useState([])
     const editor = useRef()
     const cates = useSelector(cateSelect.category)
