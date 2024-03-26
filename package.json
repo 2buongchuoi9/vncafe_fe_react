@@ -5,7 +5,7 @@
     "type": "module",
     "proxy": "http://localhost:8083",
     "scripts": {
-        "dev": "vite --port 5172",
+        "dev": "vite",
         "build": "vite build",
         "host": "vite --host",
         "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
