@@ -25,7 +25,7 @@ function App() {
     }, [])
 
     return (
-        <>
+        <div className="relative">
             <LoadingProvider>
                 <MessageApiProvider>
                     <Routes>
@@ -73,7 +73,7 @@ function App() {
                 </MessageApiProvider>
                 <Loading />
             </LoadingProvider>
-        </>
+        </div>
     )
 }
 

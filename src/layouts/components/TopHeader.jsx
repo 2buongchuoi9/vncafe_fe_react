@@ -14,6 +14,8 @@ import AuthModal from "~/components/auth/AuthModal"
 import { useDispatch, useSelector } from "react-redux"
 import { authAction, authSelect } from "~/app/slice/Auth.slice"
 import { Link } from "react-router-dom"
+import { FiMenu } from "react-icons/fi"
+import { cateSelect } from "~/app/slice/Category.slice"
 
 dayjs.locale("vi")
 
@@ -21,6 +23,7 @@ const TopHeader = () => {
     const [isOpenModalAuth, setIsOpenModalAuth] = useState(false)
     const [search, setSearch] = useState("")
     const debouncedSearch = useDebounce(search, 500)
+    const cates = useSelector(cateSelect.category)
 
     const dispatch = useDispatch()
 
@@ -50,59 +53,61 @@ const TopHeader = () => {
         },
     ]
 
-    return (
-        <div className="space-y-1 text-gray-600">
-            <div className="w-full h-[1px] bg-gray-300"></div>
+    const menu = cates && cates.map((cate) => ({ key: cate.id, label: <Link to={"/"}>{cate.name}</Link> }))
 
-            <div className="flex justify-between w-[80%] mx-auto">
-                <div className="flex items-center space-x-4  divide-x-2 divide-solid divide-gray-300">
-                    <div className="h-10 w-20">
-                        <Link to={"/"}>
-                            <img src={logo} alt="logo" className="w-full h-full" />
-                        </Link>
-                    </div>
-                    <div className="pl-4">{dayjs().format("dddd, DD/MM/YYYY")}</div>
+    return (
+        <div className="flex items-center justify-between w-[90%] lg:w-[75%] mx-auto space-y-1 text-gray-600">
+            <div className="flex justify-center items-center space-x-2">
+                <div className="lg:hidden">
+                    <Dropdown menu={{ items: menu }} trigger={["click"]}>
+                        <FiMenu size={20} />
+                    </Dropdown>
                 </div>
-                <div className="flex items-center divide-x-2 divide-solid divide-gray-300 space-x-4">
-                    <div className="pl-4">
-                        <p>Mới nhất</p>
-                    </div>
-                    <div className="pl-4">
-                        <div className="group flex">
-                            <Input
-                                onChange={(e) => setSearch(e.target.value)}
-                                className="rounded-full"
-                                placeholder="Bài viết, tác giả, chủ đề"
-                                prefix={<IoIosSearch />}
-                            />
-                        </div>
-                    </div>
-                    <div className="pl-4 flex items-center space-x-4">
-                        <div className="flex items-center space-x-2">
-                            {!user.id ? (
-                                <>
-                                    <FaRegUser />
-                                    <div onClick={() => setIsOpenModalAuth(true)} className="hover:cursor-pointer hover:text-blue-600">
-                                        Đăng nhập
-                                    </div>
-                                </>
-                            ) : (
-                                <div className="flex items-center space-x-1">
-                                    <Avatar src={user.image}></Avatar>
-                                    <div className="flex items-center hover:text-blue-500">
-                                        <Dropdown menu={{ items }} trigger={["click"]} className="hover:cursor-pointer">
-                                            <div>{user.name}</div>
-                                        </Dropdown>
-                                        <IoMdArrowDropdown size={12} color="gray" />
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                        <PiBellRingingLight size={20} />
-                    </div>
+                <div className="flex items-center space-x-4 divide-x-2 divide-solid divide-gray-300">
+                    <Link className="" to={"/"}>
+                        <img src={logo} alt="logo" className="w-20 h-10" />
+                    </Link>
+
+                    <div className="hidden lg:block pl-4">{dayjs().format("dddd, DD/MM/YYYY")}</div>
                 </div>
             </div>
-            <div className="w-full h-[1px] bg-gray-300"></div>
+            <div className="flex items-center divide-x-2 divide-solid divide-gray-300 space-x-4">
+                <div className="pl-4 hidden lg:block">
+                    <p>Mới nhất</p>
+                </div>
+                <div className="hidden group md:flex pl-4">
+                    <Input
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="rounded-full"
+                        placeholder="Bài viết, tác giả, chủ đề"
+                        prefix={<IoIosSearch />}
+                    />
+                </div>
+
+                <div className="pl-4 flex items-center space-x-4">
+                    <div className="flex items-center space-x-2">
+                        {!user.id ? (
+                            <div onClick={() => setIsOpenModalAuth(true)} className="flex items-center">
+                                <FaRegUser />
+                                <div className="hidden lg:block hover:cursor-pointer hover:text-blue-600">Đăng nhập</div>
+                            </div>
+                        ) : (
+                            <div className="">
+                                <Dropdown menu={{ items }} trigger={["click"]} className="hover:cursor-pointer">
+                                    <div className="flex items-center hover:text-blue-500 space-x-1">
+                                        <Avatar src={user.image}></Avatar>
+                                        <div className="hidden lg:flex lg:items-center">
+                                            <div>{user.name}</div>
+                                            <IoMdArrowDropdown size={12} color="gray" />
+                                        </div>
+                                    </div>
+                                </Dropdown>
+                            </div>
+                        )}
+                    </div>
+                    <PiBellRingingLight size={20} />
+                </div>
+            </div>
             <AuthModal isOpen={isOpenModalAuth} onCancel={() => setIsOpenModalAuth(false)}></AuthModal>
         </div>
     )

@@ -153,7 +153,7 @@ const NewsDetail = ({ isAdd = false }) => {
                                         style={{ backgroundColor: token.colorPrimaryHover }}
                                         block
                                     >
-                                        Update
+                                        {isAdd ? "Create" : "Update"}
                                     </Button>
                                     <div className="w-[25%]"></div>
                                 </div>,

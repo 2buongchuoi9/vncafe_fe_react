@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd"
+import { Button, Divider, Form, Input } from "antd"
 import propTypes from "prop-types"
 import { Formik } from "formik"
 import * as Yup from "yup"
@@ -24,8 +24,8 @@ const LoginForm = ({ onSubmit }) => {
             {(formikProps) => {
                 const { values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit } = formikProps
                 return (
-                    <div className="w-[100%] flex justify-center items-center divide-x divide-solid divide-gray-300 space-x-5 mb-5">
-                        <div className="w-[60%]">
+                    <div className="w-[100%] block md:flex justify-center items-center md:divide-x divide-solid divide-gray-300 md:space-x-5 lg:mb-5">
+                        <div className="w-full md:w-[60%]">
                             <Form onFinish={handleSubmit}>
                                 <div className="mb-10 flex justify-center text-base">Đăng nhập với email</div>
                                 <div className="space-y-5">
@@ -71,7 +71,7 @@ const LoginForm = ({ onSubmit }) => {
                                 </div>
                             </Form>
                         </div>
-                        <div className="pl-5 w-[40%]">
+                        <div className="w-full pt-5 md:pl-5 md:w-[40%]">
                             <SocialAuth />
                         </div>
                     </div>

@@ -7,16 +7,28 @@ import { Link } from "react-router-dom"
 import api from "~/api/api"
 import { useDispatch } from "react-redux"
 import { authAction } from "~/app/slice/Auth.slice"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { MessageApiContext } from "~/app/provider/MessageApiProvider"
 
 const cl = classNames.bind()
 
-const ww = window.screen.width * 0.6
-
 const AuthModal = ({ isOpen = false, onCancel, onRegister, onLogin }) => {
     const dispatch = useDispatch()
     const { success, error: err } = useContext(MessageApiContext)
+    const [ww, setWw] = useState(window.screen.width < 1024 ? "100%" : "50%")
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWw(window.screen.width < 1024 ? "100%" : "50%")
+        }
+
+        window.addEventListener("resize", handleResize)
+
+        // Clean up the event listener when the component unmounts
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
 
     const handleLogin = async (values) => {
         try {
@@ -54,7 +66,7 @@ const AuthModal = ({ isOpen = false, onCancel, onRegister, onLogin }) => {
                     defaultActiveKey="1"
                     type="card"
                     size="large"
-                    style={{ width: ww * 0.9 }}
+                    // style={{ width: "50%" }}
                     tabPosition="top"
                     items={[
                         {
@@ -68,7 +80,7 @@ const AuthModal = ({ isOpen = false, onCancel, onRegister, onLogin }) => {
                             children: <RegisterForm />,
                         },
                     ]}
-                ></Tabs>
+                />
             </Modal>
         </>
     )

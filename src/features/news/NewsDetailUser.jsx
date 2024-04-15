@@ -29,50 +29,48 @@ const NewsDetailUser = () => {
 
     return (
         <div className="bg-[#fcfaf6]">
-            <div className="w-[70%] m-auto">
-                <div className="space-y-4">
-                    <div className="flex flex-row space-x-4">
-                        {/* content news */}
-                        <div className="basis-3/4 space-y-4 relative">
-                            {/* category and time */}
-                            <div className="flex justify-between items-center">
-                                <div className="flex items-center space-x-1">
-                                    <Link>{news?.category?.parentName}</Link>
-                                    <IoIosArrowForward />
-                                    <Link>{news?.category?.name}</Link>
-                                </div>
-                                <div>
-                                    {dayjs(news?.createAt, "DD-MM-YYYY HH:mm:ss").format("dddd, DD/MM/YYYY HH:mm") === "Invalid Date"
-                                        ? news?.createAt
-                                        : dayjs(news?.createAt, "DD-MM-YYYY HH:mm:ss").format("dddd, DD/MM/YYYY HH:mm")}
-                                </div>
+            <div className="w-[90%] lg:w-[70%] m-auto">
+                <div className="flex flex-row space-x-4">
+                    {/* content news */}
+                    <div className="w-full lg:basis-3/4 space-y-4 relative">
+                        {/* category and time */}
+                        <div className="block lg:flex justify-between items-center">
+                            <div className="flex items-center space-x-1">
+                                <Link>{news?.category?.parentName}</Link>
+                                <IoIosArrowForward />
+                                <Link>{news?.category?.name}</Link>
                             </div>
-                            {/* title */}
-                            <div>
-                                <Typography.Title className="hover:text-blue-400 text-black" level={1}>
-                                    {news?.name}
-                                </Typography.Title>
-                            </div>
-                            <div>
-                                <div dangerouslySetInnerHTML={{ __html: news?.content }}></div>
-                            </div>
-                            {/* share */}
-                            <div>
-                                <Share className="absolute top-96 -left-14" />
+                            <div className="">
+                                {dayjs(news?.createAt, "DD-MM-YYYY HH:mm:ss").format("dddd, DD/MM/YYYY HH:mm") === "Invalid Date"
+                                    ? news?.createAt
+                                    : dayjs(news?.createAt, "DD-MM-YYYY HH:mm:ss").format("dddd, DD/MM/YYYY HH:mm")}
                             </div>
                         </div>
-                        <div className="basis-1/4 ">
-                            <img src={banner} alt="" />
+                        {/* title */}
+                        <div>
+                            <Typography.Title className="hover:text-blue-400 text-black" level={1}>
+                                {news?.name}
+                            </Typography.Title>
                         </div>
+                        <div>
+                            <div dangerouslySetInnerHTML={{ __html: news?.content }}></div>
+                        </div>
+                        {/* share */}
+                        <div className="hidden lg:block">
+                            <Share className="absolute top-96 -left-14" />
+                        </div>
+                    </div>
+                    <div className="hidden lg:block basis-1/4 ">
+                        <img src={banner} alt="" />
                     </div>
                 </div>
             </div>
             {/* comment */}
             <div className="bg-white">
-                <div className="w-[70%] m-auto">
+                <div className="w-[90%] lg:w-[70%] m-auto">
                     <div className="flex flex-row space-x-4 pt-4">
-                        <div className="w-3/4 space-y-4 border-r-[1px] pr-4">{news && <Comment newsId={news?.id}></Comment>}</div>
-                        <div className="w-1/4"></div>
+                        <div className="w-full lg:w-3/4 space-y-4 border-r-[1px] pr-4">{news && <Comment newsId={news?.id}></Comment>}</div>
+                        <div className="hidden lg:block w-1/4"></div>
                     </div>
                 </div>
             </div>
